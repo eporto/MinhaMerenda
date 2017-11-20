@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.tac.marcos.minhamerenda.MainActivity"
+    tools:layout_editor_absoluteY="81dp"
+    tools:showIn="@layout/app_bar_main">
+
+    <ImageView
+        android:id="@+id/imgEscola"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="23dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/escola_image"
+        app:layout_constraintBottom_toTopOf="@+id/txtEscola"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/img_escola" />
+
+    <TextView
+        android:id="@+id/txtEscola"
+        android:layout_width="0dp"
+        android:layout_height="31dp"
+        android:layout_marginBottom="12dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/starPontuacaoPost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgEscola" />
+
+    <TextView
+        android:id="@+id/txtPontuacao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="132dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/starPontuacaoPost" />
+
+    <RatingBar
+        android:id="@+id/starPontuacaoPost"
+        android:layout_width="0dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="21dp"
+        android:layout_marginEnd="71dp"
+        android:layout_marginStart="71dp"
+        android:numStars="5"
+        android:stepSize="0"
+        app:layout_constraintBottom_toTopOf="@+id/txtPontuacao"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEscola" />
+</android.support.constraint.ConstraintLayout>

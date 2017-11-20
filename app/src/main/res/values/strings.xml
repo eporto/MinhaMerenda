@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Minha Merenda</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_first_start">FirstStart</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!--FirstStartTabOneTab1 Activity-->
+    <string name="scrnOne_title1">Bem vindo ao Minha Merenda! </string>
+    <string name="scrnOne_txt1">Já que é a sua primeira vez, precisamos de algumas informações sua. </string>
+
+    <!--FirstStartTabOneTab1 Activity-->
+    <string name="scrn2_title">Selecione sua Escola ou Creche! </string>
+    <string name="scrn2_txt">Procure sua Escola. </string>
+
+    <!--MakeAvaliacao Activity-->
+    <string name="title_activity_make_avaliacao">Avaliar Merenda</string>
+
+    <string name="title_activity_first_start_tab1">FirstStartTab1</string>
+    <string name="title_activity_first_start_tab2">FirstStartTab2</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="escola_image">escola Image</string>
+</resources>
