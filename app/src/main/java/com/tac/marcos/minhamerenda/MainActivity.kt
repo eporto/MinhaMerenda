@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         pontuacaoStar = findViewById<View>(R.id.starPontuacaoPost) as RatingBar
 
         //Setting User
-        user = Usuario(1, "Estudante")
+        user = Usuario(0, "Aluno")
 
         //Getting Escola from previous Activity
         var bundle: Bundle = intent.extras

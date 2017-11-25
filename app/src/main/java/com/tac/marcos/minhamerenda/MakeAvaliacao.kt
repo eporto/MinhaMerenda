@@ -46,7 +46,7 @@ class MakeAvaliacao : AppCompatActivity() {
         var bundle: Bundle = intent.extras
         escola = bundle.getSerializable("escola") as Escola?
 
-        //Getting Avaliações from previus Activity
+        //Getting Usuário from previus Activity
         user = bundle.getSerializable("user") as Usuario
 
         //Setting View
