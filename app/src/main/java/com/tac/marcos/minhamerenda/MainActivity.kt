@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //Classes
     var escola: Escola? = null;
     var avaliacao: Avaliacao? = null;
-    var mediaAvaliacao: Int? = null;
+    var mediaAvaliacao: Float? = null;
     var avaliacoes: ArrayList<Avaliacao>? = null
     var user: Usuario? = null
 
@@ -63,7 +63,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             pontuacaoTxt!!.text = "Ainda não possui avaliações"
         }
         else{
-            pontuacaoStar!!.rating = mediaAvaliacao!!.toFloat()
+            pontuacaoStar!!.rating = mediaAvaliacao as Float
+            pontuacaoTxt!!.text = mediaAvaliacao.toString()
         }
 
         fab.setOnClickListener { view ->

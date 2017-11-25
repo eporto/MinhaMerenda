@@ -24,9 +24,9 @@ class Escola : Serializable{
     constructor()
 
     //FUNCTIONS
-    fun getAvaliacao(a: ArrayList<Avaliacao>): Int?{
-        var avaliacao: Int? = 0
-        var qtd = 0;
+    fun getAvaliacao(a: ArrayList<Avaliacao>): Float?{
+        var avaliacao: Float? = 0F
+        var qtd = 0
         for (i in a){
             if(i.getEscola()!!.getEscolaId() == this.escolaID){
                 avaliacao = avaliacao!! + i.getPontuacao()!!
