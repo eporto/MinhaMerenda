@@ -1,6 +1,9 @@
 package com.tac.marcos.minhamerenda
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
@@ -13,6 +16,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
 import org.json.JSONException
+import java.io.IOException
 import java.net.SocketTimeoutException
 import kotlin.concurrent.thread
 
@@ -33,13 +37,17 @@ class FirstStartTabTwo : AppCompatActivity() {
     private val escolaList = ArrayList<Escola>()
     private var escolaToSend: Escola? = null
     private val avaliacaoList = ArrayList<Avaliacao>()
-    private var avaliacaoToSend: Avaliacao? = null
+//    private var avaliacaoToSend: Avaliacao? = null
 
     //JSON RETURN
     private var json: String? = null
     private var jsonresp = JSONArray()
 
+    //Shared Preferences
+    private var prefs: SharedPreferences? = null
 
+
+    @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -87,7 +95,7 @@ class FirstStartTabTwo : AppCompatActivity() {
 
                         cbEscolas!!.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                             override fun onNothingSelected(parent: AdapterView<*>?) {
-//                                jsonTextField!!.text = "Selecione uma opção"
+//                                jsonTextField!!.text = "Selecione a sua escola"
                             }
 
                             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -157,6 +165,19 @@ class FirstStartTabTwo : AppCompatActivity() {
 
         //Listenners
         btnNext!!.setOnClickListener{
+            //save Escola into SharedPrefs
+            prefs = getSharedPreferences("mypref", Context.MODE_PRIVATE)
+            prefs!!.edit().putString("escolaJson", escolaToSend.toString())
+            //save Avaliações into SharedPrefs
+            jsonresp = JSONArray(avaliacaoList.toString())
+
+            try {
+                prefs!!.edit().putString("avaliacoesJson", jsonresp.toString())
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+
             var bundle = Bundle()
             bundle.putSerializable("escola", escolaToSend)
             bundle.putSerializable("avaliacao", avaliacaoList)
@@ -164,4 +185,10 @@ class FirstStartTabTwo : AppCompatActivity() {
             finish()
         }
     }
+
+//    override fun onBackPressed() {
+//
+//        startActivity(Intent(this, FirstStartTabTwo::class.java))
+//    }
+
 }

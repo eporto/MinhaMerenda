@@ -1,5 +1,6 @@
 package com.tac.marcos.minhamerenda
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -12,7 +13,7 @@ import android.util.Log
  */
 
 class HelperActivity : Activity() {
-    internal var prefs: SharedPreferences? = null
+    private var prefs: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +22,7 @@ class HelperActivity : Activity() {
         prefs = getSharedPreferences("mypref", Context.MODE_PRIVATE)
     }
 
+    @SuppressLint("ApplySharedPref")
     override fun onResume() {
         super.onResume()
 

@@ -1,6 +1,8 @@
 package com.tac.marcos.minhamerenda
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -15,6 +17,8 @@ import android.widget.TextView
 import com.example.marcos.okhttptest.Escola
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import org.json.JSONArray
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -33,6 +37,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     var avaliacoes: ArrayList<Avaliacao>? = null
     var user: Usuario? = null
 
+    //JSON
+    var escolaJsonObj: JSONObject? = null
+    var avaliacaoJsonArray: JSONArray? = null
+
+    //SharedPrefs
+    private var prefs: SharedPreferences? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -42,18 +53,53 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         escolaTxt = findViewById<View>(R.id.txtEscola) as TextView
         pontuacaoTxt = findViewById<View>(R.id.txtPontuacao) as TextView
         pontuacaoStar = findViewById<View>(R.id.starPontuacaoPost) as RatingBar
-        settings = findViewById<View>(R.id.action_settings) as MenuItem
+        //settings = findViewById<View>(R.id.action_settings) as MenuItem
 
         //Setting User
         user = Usuario(0, "Aluno")
 
-        //Getting Escola from previous Activity
-        var bundle: Bundle = intent.extras
-        escola = bundle.getSerializable("escola") as Escola?
 
-        //Getting Avaliações from previus Activity
-        avaliacoes = bundle.getSerializable("avaliacao") as ArrayList<Avaliacao>
+        if(intent.extras != null) { // Verify if any value has been pass from intent
+            var bundle: Bundle = intent.extras
+            if(bundle.getSerializable("escola") != null) {//Verify if escola has been passed via intent
+                //Getting Escola from previous Activity
+                escola = bundle.getSerializable("escola") as Escola?
+            }
+            if(bundle.getSerializable("avaliacao") != null) { //Verify if avaliações has been passed via intent
+                //Getting Avaliações from previus Activity
+                avaliacoes = bundle.getSerializable("avaliacao") as ArrayList<Avaliacao>
+            }
+        }
+        else{// Its not the first time. take Escolas and Avaliações from SharedPrefs
+            prefs = getSharedPreferences("mypref", Context.MODE_PRIVATE)
+            //setting Escola
+            var escolaJson = prefs!!.getString("escolaJson", "0")
+            if(escolaJson != "0"){
+                escolaJsonObj = JSONObject(escolaJson)
+                escola!!.setEscolaID(escolaJsonObj!!.getInt("id"))
+                escola!!.setEscolaNome(escolaJsonObj!!.getString("escolaNome"))
+                escola!!.setLatitude(escolaJsonObj!!.getString("latitude"))
+                escola!!.setLongitude(escolaJsonObj!!.getString("longitude"))
+            }
 
+            //Setting Avaliações
+            var avaliacaoJson = prefs!!.getString("avaliacaoJson", "0")
+            if(avaliacaoJson != "0"){
+                avaliacaoJsonArray = JSONArray(avaliacaoJson)
+
+                for (i in 0 until avaliacaoJsonArray!!.length()) {
+                    var r = Avaliacao()
+
+                    //Setting Avaliacao
+                    r.setAvaliacaoID(avaliacaoJsonArray!!.getJSONObject(i).getInt("id"))
+                    r.setPontuacao(avaliacaoJsonArray!!.getJSONObject(i).getInt("pontuacao"))
+                    r.setEscola(escola)
+                    r.setFoto("link da foto")
+
+                    avaliacoes!!.add(r)
+                }
+            }
+        }
         //Logs
         Log.i("Escola", escola!!.getEscolaNome())
 
@@ -86,18 +132,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         nav_view.setNavigationItemSelectedListener(this)
 
-        settings!!.setOnMenuItemClickListener {
-            
-        }
     }
 
-    override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
-        } else {
-            startActivity(Intent(this, FirstStartTabTwo::class.java))
-        }
-    }
+
+//    override fun onBackPressed() {
+//        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+//            drawer_layout.closeDrawer(GravityCompat.START)
+//        } else {
+//            startActivity(Intent(this, FirstStartTabTwo::class.java))
+//        }
+//    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -106,12 +150,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        when (item.itemId) {
-            R.id.action_settings -> return true
-            else -> return super.onOptionsItemSelected(item)
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                startActivity(Intent(this, FirstStartTabTwo::class.java))
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

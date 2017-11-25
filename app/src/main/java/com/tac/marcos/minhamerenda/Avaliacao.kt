@@ -47,7 +47,7 @@ class Avaliacao : Serializable{
         return this.escola
     }
 
-    fun setEscola(s : Escola) {
+    fun setEscola(s: Escola?) {
         this.escola = s
     }
 
