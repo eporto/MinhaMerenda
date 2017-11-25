@@ -21,14 +21,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val TAG: String = "MainActivity"
 
     //VIEW
-    var escolaTxt: TextView? = null;
-    var pontuacaoTxt: TextView? = null;
-    var pontuacaoStar: RatingBar? = null;
+    var escolaTxt: TextView? = null
+    var pontuacaoTxt: TextView? = null
+    var pontuacaoStar: RatingBar? = null
+    var settings: MenuItem? = null
 
     //Classes
-    var escola: Escola? = null;
-    var avaliacao: Avaliacao? = null;
-    var mediaAvaliacao: Float? = null;
+    var escola: Escola? = null
+    var avaliacao: Avaliacao? = null
+    var mediaAvaliacao: Float? = null
     var avaliacoes: ArrayList<Avaliacao>? = null
     var user: Usuario? = null
 
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         escolaTxt = findViewById<View>(R.id.txtEscola) as TextView
         pontuacaoTxt = findViewById<View>(R.id.txtPontuacao) as TextView
         pontuacaoStar = findViewById<View>(R.id.starPontuacaoPost) as RatingBar
+        settings = findViewById<View>(R.id.action_settings) as MenuItem
 
         //Setting User
         user = Usuario(0, "Aluno")
@@ -64,8 +66,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         else{
             pontuacaoStar!!.rating = mediaAvaliacao as Float
-            pontuacaoTxt!!.text = mediaAvaliacao.toString()
+            pontuacaoTxt!!.text = String.format("%.01f", mediaAvaliacao)+" Estrelas"
         }
+
+        //Listeners
 
         fab.setOnClickListener { view ->
             var bundle = Bundle()
@@ -81,6 +85,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        settings!!.setOnMenuItemClickListener {
+            
+        }
     }
 
     override fun onBackPressed() {
