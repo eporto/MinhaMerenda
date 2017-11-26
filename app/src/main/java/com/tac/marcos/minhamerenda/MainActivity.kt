@@ -57,6 +57,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         pontuacaoStar = findViewById(R.id.starPontuacaoPost)
         //settings = findViewById<View>(R.id.action_settings) as MenuItem
 
+//        Log.i("Hash", hashCode().toString())
+
         //Setting User
         user = Usuario(0, "Aluno")
 
