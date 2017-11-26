@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity
 
 class FirstStartTabOne : AppCompatActivity() {
     private var btnNext: FloatingActionButton? = null
-    private var appKey = hashCode().toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

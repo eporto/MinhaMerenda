@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
@@ -11,6 +12,7 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Spinner
+import android.widget.TextView
 import com.example.marcos.okhttptest.Escola
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -19,6 +21,8 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.net.SocketTimeoutException
 import kotlin.concurrent.thread
+
+
 
 class FirstStartTabTwo : AppCompatActivity() {
 
@@ -102,6 +106,8 @@ class FirstStartTabTwo : AppCompatActivity() {
                             }
 
                             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                                (parent!!.getChildAt(0) as TextView).setTextColor(Color.WHITE)
+                                (parent.getChildAt(0) as TextView).textSize = 18f
                                 escolaToSend = escolaList[position]
                             }
 

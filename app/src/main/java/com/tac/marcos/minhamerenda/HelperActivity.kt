@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.example.marcos.okhttptest.Escola
+import org.apache.commons.codec.digest.DigestUtils
 import org.json.JSONObject
 import java.net.SocketTimeoutException
 import kotlin.concurrent.thread
@@ -24,6 +25,8 @@ class HelperActivity : AppCompatActivity() {
     var AvaliacaoList = ArrayList<Avaliacao>()
     var escola: Escola? = Escola()
     var escolaJsonObj: JSONObject? = null
+    private var appKey: String? = null
+    private var hash = hashCode().toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +43,13 @@ class HelperActivity : AppCompatActivity() {
             //Do first Run Stuff
             Log.i("TAG", "Primeira vez")
 
+            //Create appkey
+            appKey = DigestUtils.md5Hex(hash)
+
+            //TODO POST the appKey to webservice
+
             prefs!!.edit().putBoolean("firststart", false).apply()
+            prefs!!.edit().putString("appKey", appKey).apply()
             startActivity(Intent(this, FirstStartTabOne::class.java))
             finish()
         }

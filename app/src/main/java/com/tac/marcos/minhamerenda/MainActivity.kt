@@ -1,5 +1,6 @@
 package com.tac.marcos.minhamerenda
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -49,15 +50,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(toolbar)
 
         //VIEW
-//        escolaTxt = findViewById<View>(R.id.txtEscola) as TextView
         escolaTxt = findViewById(R.id.txtEscola)
-//        pontuacaoTxt = findViewById<View>(R.id.txtPontuacao) as TextView
         pontuacaoTxt = findViewById(R.id.txtPontuacao)
-//        pontuacaoStar = findViewById<View>(R.id.starPontuacaoPost) as RatingBar
         pontuacaoStar = findViewById(R.id.starPontuacaoPost)
-        //settings = findViewById<View>(R.id.action_settings) as MenuItem
 
-//        Log.i("Hash", hashCode().toString())
+        //Degub Appkey
+        prefs = this.getSharedPreferences("mypref", Context.MODE_PRIVATE)
+        Log.i("AppKey", prefs!!.getString("appKey", "NULL"))
 
         //Setting User
         user = Usuario(0, "Aluno")
