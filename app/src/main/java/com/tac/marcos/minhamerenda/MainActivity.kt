@@ -1,6 +1,5 @@
 package com.tac.marcos.minhamerenda
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -11,7 +10,6 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.RatingBar
 import android.widget.TextView
 import com.example.marcos.okhttptest.Escola
@@ -36,6 +34,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     var mediaAvaliacao: Float? = null
     var avaliacoes: ArrayList<Avaliacao>? = null
     var user: Usuario? = null
+    var ctrl_avaliacao = CtrlAvaliacao()
 
     //JSON
     var escolaJsonObj: JSONObject? = null
@@ -50,56 +49,65 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(toolbar)
 
         //VIEW
-        escolaTxt = findViewById<View>(R.id.txtEscola) as TextView
-        pontuacaoTxt = findViewById<View>(R.id.txtPontuacao) as TextView
-        pontuacaoStar = findViewById<View>(R.id.starPontuacaoPost) as RatingBar
+//        escolaTxt = findViewById<View>(R.id.txtEscola) as TextView
+        escolaTxt = findViewById(R.id.txtEscola)
+//        pontuacaoTxt = findViewById<View>(R.id.txtPontuacao) as TextView
+        pontuacaoTxt = findViewById(R.id.txtPontuacao)
+//        pontuacaoStar = findViewById<View>(R.id.starPontuacaoPost) as RatingBar
+        pontuacaoStar = findViewById(R.id.starPontuacaoPost)
         //settings = findViewById<View>(R.id.action_settings) as MenuItem
 
         //Setting User
         user = Usuario(0, "Aluno")
 
+        //Get values from SharedPrefs
+        var bundle: Bundle = intent.extras
+        //Getting Escola from previous Activity
+        escola = bundle.getSerializable("escola") as Escola?
 
-        if(intent.extras != null) { // Verify if any value has been pass from intent
-            var bundle: Bundle = intent.extras
-            if(bundle.getSerializable("escola") != null) {//Verify if escola has been passed via intent
-                //Getting Escola from previous Activity
-                escola = bundle.getSerializable("escola") as Escola?
-            }
-            if(bundle.getSerializable("avaliacao") != null) { //Verify if avaliações has been passed via intent
-                //Getting Avaliações from previus Activity
-                avaliacoes = bundle.getSerializable("avaliacao") as ArrayList<Avaliacao>
-            }
-        }
-        else{// Its not the first time. take Escolas and Avaliações from SharedPrefs
-            prefs = getSharedPreferences("mypref", Context.MODE_PRIVATE)
-            //setting Escola
-            var escolaJson = prefs!!.getString("escolaJson", "0")
-            if(escolaJson != "0"){
-                escolaJsonObj = JSONObject(escolaJson)
-                escola!!.setEscolaID(escolaJsonObj!!.getInt("id"))
-                escola!!.setEscolaNome(escolaJsonObj!!.getString("escolaNome"))
-                escola!!.setLatitude(escolaJsonObj!!.getString("latitude"))
-                escola!!.setLongitude(escolaJsonObj!!.getString("longitude"))
-            }
+        //Getting Avaliações from previus Activity
+        avaliacoes = bundle.getSerializable("avaliacao") as ArrayList<Avaliacao>
 
-            //Setting Avaliações
-            var avaliacaoJson = prefs!!.getString("avaliacaoJson", "0")
-            if(avaliacaoJson != "0"){
-                avaliacaoJsonArray = JSONArray(avaliacaoJson)
-
-                for (i in 0 until avaliacaoJsonArray!!.length()) {
-                    var r = Avaliacao()
-
-                    //Setting Avaliacao
-                    r.setAvaliacaoID(avaliacaoJsonArray!!.getJSONObject(i).getInt("id"))
-                    r.setPontuacao(avaliacaoJsonArray!!.getJSONObject(i).getInt("pontuacao"))
-                    r.setEscola(escola)
-                    r.setFoto("link da foto")
-
-                    avaliacoes!!.add(r)
-                }
-            }
-        }
+//        else{// Its not the first time. take Escolas and Avaliações from SharedPrefs
+//            prefs = this.getSharedPreferences("mypref", Context.MODE_PRIVATE)
+//            //setting Escola
+//            var escolaJson = prefs!!.getString("escolaJson", "0")
+//            if(escolaJson != "0"){
+//                escolaJsonObj = JSONObject(escolaJson)
+//                escola!!.setEscolaID(escolaJsonObj!!.getInt("id"))
+//                escola!!.setEscolaNome(escolaJsonObj!!.getString("escolaNome"))
+//                escola!!.setLatitude(escolaJsonObj!!.getString("latitude"))
+//                escola!!.setLongitude(escolaJsonObj!!.getString("longitude"))
+//            }
+//
+//            //Setting Avaliações
+//            thread {
+//                try {
+//                    avaliacoes = ctrl_avaliacao.getAvaliacao(escola!!)
+//                }catch (e : IllegalArgumentException){
+////                    jsonTextField!!.text = e.message
+//                }catch (a : SocketTimeoutException){
+////                    jsonTextField!!.text = a.message
+//                }
+//            }
+//
+////            var avaliacaoJson = prefs!!.getString("avaliacaoJson", "0")
+////            if(avaliacaoJson != "0"){
+////                avaliacaoJsonArray = JSONArray(avaliacaoJson)
+////
+////                for (i in 0 until avaliacaoJsonArray!!.length()) {
+////                    var r = Avaliacao()
+////
+////                    //Setting Avaliacao
+////                    r.setAvaliacaoID(avaliacaoJsonArray!!.getJSONObject(i).getInt("id"))
+////                    r.setPontuacao(avaliacaoJsonArray!!.getJSONObject(i).getInt("pontuacao"))
+////                    r.setEscola(escola)
+////                    r.setFoto("link da foto")
+////
+////                    avaliacoes!!.add(r)
+////                }
+////            }
+//        }
         //Logs
         Log.i("Escola", escola!!.getEscolaNome())
 

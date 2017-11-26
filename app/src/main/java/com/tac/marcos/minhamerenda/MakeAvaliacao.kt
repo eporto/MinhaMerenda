@@ -1,10 +1,10 @@
 package com.tac.marcos.minhamerenda
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.View
 import android.widget.RatingBar
 import android.widget.TextView
 import com.example.marcos.okhttptest.Escola
@@ -24,6 +24,7 @@ class MakeAvaliacao : AppCompatActivity() {
     //Classes
     var escola: Escola? = null
     var user: Usuario? = null
+    var ctrl_avaliacao = CtrlAvaliacao()
 
     //OKHTTP
     private var client: OkHttpClient? = null
@@ -32,6 +33,7 @@ class MakeAvaliacao : AppCompatActivity() {
 
     //JSON
     var avaliacaoJson: JSONObject = JSONObject()
+    var avaliacaoList = ArrayList<Avaliacao>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,8 +41,8 @@ class MakeAvaliacao : AppCompatActivity() {
         setContentView(R.layout.activity_make_avaliacao)
 
         //VIEW
-        escolaTxt = findViewById<View>(R.id.txtEscola) as TextView
-        pontuacaoStar = findViewById<View>(R.id.starPontuacaoPost) as RatingBar
+        escolaTxt = findViewById(R.id.txtEscola)
+        pontuacaoStar = findViewById(R.id.starPontuacaoPost)
 
         //Getting Escola from previous Activity
         var bundle: Bundle = intent.extras
@@ -77,7 +79,28 @@ class MakeAvaliacao : AppCompatActivity() {
 
                     this.runOnUiThread {
                         Snackbar.make(view, result.toString(), Snackbar.LENGTH_LONG).setAction("Action", null).show()
-                        finish()
+                        thread{
+                            try {
+                                avaliacaoList = ctrl_avaliacao.getAll()!!
+                                while (avaliacaoList.isEmpty()){
+
+                                }
+                                var bundle = Bundle()
+                                bundle.putSerializable("escola", escola)
+                                bundle.putSerializable("avaliacao", avaliacaoList)
+                                startActivity(Intent(this, MainActivity::class.java).putExtras(bundle))
+                                finish()
+                            }catch (e : IllegalArgumentException){
+//                              jsonTextField!!.text = e.message
+                            }catch (a : SocketTimeoutException){
+//                              jsonTextField!!.text = a.message
+                            }
+                        }
+
+//                        var bundle = Bundle()
+//                        bundle.putSerializable("escola", escola)
+//                        startActivity(Intent(this, MainActivity::class.java).putExtras(bundle))
+//                        finish()
                     }
 
                 }catch (e: IllegalArgumentException){

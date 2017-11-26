@@ -3,51 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="81dp">
 
     <TextView
         android:id="@+id/txtEscola"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="492dp"
-        android:layout_marginEnd="326dp"
-        android:layout_marginStart="326dp"
-        android:layout_marginTop="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="72dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <RatingBar
         android:id="@+id/starPontuacaoPost"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="454dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="200dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="28dp"
         android:numStars="5"
-        android:stepSize="1"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:stepSize="0.5"
+        app:layout_constraintBottom_toTopOf="@+id/txtEscola"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toBottomOf="@+id/btnPost"
+        app:layout_constraintVertical_bias="0.791" />
+    <!--@+id/btnPost-->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="11dp"
-        android:layout_marginEnd="344dp"
-        android:layout_marginStart="344dp"
-        android:layout_marginTop="800dp"
+        android:layout_marginBottom="48dp"
         android:clickable="true"
+        android:focusable="true"
         android:foregroundGravity="bottom"
         android:tint="#ffffff"
         app:backgroundTint="@color/background"
-        app:layout_constraintBottom_toTopOf="@+id/txtEscola"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_menu_send" />
 </android.support.constraint.ConstraintLayout>
