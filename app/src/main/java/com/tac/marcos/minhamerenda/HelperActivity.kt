@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.widget.TextView
 import com.example.marcos.okhttptest.Escola
 import org.apache.commons.codec.digest.DigestUtils
 import org.json.JSONObject
@@ -27,6 +28,7 @@ class HelperActivity : AppCompatActivity() {
     var escolaJsonObj: JSONObject? = null
     private var appKey: String? = null
     private var hash = hashCode().toString()
+    var loadingview: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,7 @@ class HelperActivity : AppCompatActivity() {
     @SuppressLint("ApplySharedPref")
     override fun onResume() {
         super.onResume()
+        loadingview = findViewById(R.id.txtLoading)
 
         if (prefs!!.getBoolean("firststart", true)) {
             //Do first Run Stuff
@@ -80,9 +83,9 @@ class HelperActivity : AppCompatActivity() {
                     startActivity(Intent(this, MainActivity::class.java).putExtras(bundle))
                     finish()
                 }catch (e : IllegalArgumentException){
-//                    jsonTextField!!.text = e.message
+                    loadingview!!.text = e.message
                 }catch (a : SocketTimeoutException){
-//                    jsonTextField!!.text = a.message
+                    loadingview!!.text = a.message
                 }
             }
 
