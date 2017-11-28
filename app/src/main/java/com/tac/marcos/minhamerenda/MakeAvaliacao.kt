@@ -1,6 +1,8 @@
 package com.tac.marcos.minhamerenda
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -20,20 +22,20 @@ class MakeAvaliacao : AppCompatActivity() {
     var escolaTxt: TextView? = null
     var result: String? = null
     var pontuacaoStar: RatingBar? = null
-
     //Classes
     var escola: Escola? = null
     var user: Usuario? = null
     var ctrl_avaliacao = CtrlAvaliacao()
-
     //OKHTTP
     private var client: OkHttpClient? = null
     private val http = OkHttpClass()
     var urlPostAvaliacao = "minha-merenda.herokuapp.com/ts830/create/avaliacao"
-
     //JSON
     var avaliacaoJson: JSONObject = JSONObject()
     var avaliacaoList = ArrayList<Avaliacao>()
+    //SharedPrefs
+    var prefs: SharedPreferences? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +52,10 @@ class MakeAvaliacao : AppCompatActivity() {
 
         //Getting Usuário from previus Activity
         user = bundle.getSerializable("user") as Usuario
+
+        //Get appKey from SharedPrefs
+        prefs = this.getSharedPreferences("mypref", Context.MODE_PRIVATE)
+        var appkey = prefs!!.getString("appKey", "NULL")
 
         //Setting View
         escolaTxt!!.text = escola!!.getEscolaNome()
@@ -70,8 +76,8 @@ class MakeAvaliacao : AppCompatActivity() {
             avaliacaoJson.put("usuario", JSONObject().put("id", user!!.getUsuarioID()))
             avaliacaoJson.put("pontuacao", pontuacaoStar!!.rating)
             avaliacaoJson.put("foto", "Link da foto")
-            Log.i("Pontuação", starPontuacaoPost.rating.toString())
-            Log.i("JSON AVALIACAO", avaliacaoJson.toString())
+//            avaliacaoJson.put("appKey", appkey)
+
             thread {
                 try {
                     client = http.client
@@ -79,6 +85,7 @@ class MakeAvaliacao : AppCompatActivity() {
 
                     this.runOnUiThread {
                         Snackbar.make(view, result.toString(), Snackbar.LENGTH_LONG).setAction("Action", null).show()
+                        Log.i("PostResult", result.toString())
                         thread{
                             try {
                                 avaliacaoList = ctrl_avaliacao.getAll()!!
