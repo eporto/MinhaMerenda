@@ -53,9 +53,11 @@ class MakeAvaliacao : AppCompatActivity() {
         //Getting Usuário from previus Activity
         user = bundle.getSerializable("user") as Usuario
 
-        //Get appKey from SharedPrefs
+        //Get appKey and Token from SharedPrefs
         prefs = this.getSharedPreferences("mypref", Context.MODE_PRIVATE)
         var appkey = prefs!!.getString("appKey", "NULL")
+        var token = prefs!!.getString("Token", "NULL")
+        Log.i("Token", token)
 
         //Setting View
         escolaTxt!!.text = escola!!.getEscolaNome()
@@ -76,12 +78,11 @@ class MakeAvaliacao : AppCompatActivity() {
             avaliacaoJson.put("usuario", JSONObject().put("id", user!!.getUsuarioID()))
             avaliacaoJson.put("pontuacao", pontuacaoStar!!.rating)
             avaliacaoJson.put("foto", "Link da foto")
-//            avaliacaoJson.put("appKey", appkey)
 
             thread {
                 try {
                     client = http.client
-                    result = http.POSTurl(client, avaliacaoJson.toString(), urlPostAvaliacao)
+                    result = http.POSTurlHeader(client, avaliacaoJson.toString(), urlPostAvaliacao, appkey, token)
 
                     this.runOnUiThread {
                         Snackbar.make(view, result.toString(), Snackbar.LENGTH_LONG).setAction("Action", null).show()
@@ -103,11 +104,6 @@ class MakeAvaliacao : AppCompatActivity() {
 //                              jsonTextField!!.text = a.message
                             }
                         }
-
-//                        var bundle = Bundle()
-//                        bundle.putSerializable("escola", escola)
-//                        startActivity(Intent(this, MainActivity::class.java).putExtras(bundle))
-//                        finish()
                     }
 
                 }catch (e: IllegalArgumentException){

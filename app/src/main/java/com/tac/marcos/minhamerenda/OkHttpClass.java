@@ -4,6 +4,7 @@ import org.json.JSONArray;
 
 import java.io.IOException;
 
+import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -27,6 +28,21 @@ public class OkHttpClass {
     }
 
     public String GETurl(OkHttpClient client, Request request) throws IOException {
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+
+    public String POSTurlHeader(OkHttpClient client, String json, String url, String appkey, String token) throws IOException {
+        Headers headers = Headers.of(
+                "Appkey", appkey,
+                "Authorization", token
+        );
+        RequestBody body = RequestBody.create(JSON, json);
+        this.request = new Request.Builder()
+                .headers(headers)
+                .url("https://"+url)
+                .post(body)
+                .build();
         Response response = client.newCall(request).execute();
         return response.body().string();
     }
