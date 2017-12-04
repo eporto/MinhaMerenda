@@ -62,10 +62,11 @@ class MakeAvaliacao : AppCompatActivity() {
         //Setting View
         escolaTxt!!.text = escola!!.getEscolaNome()
 
-        Log.i("escolaID", escola!!.getEscolaId().toString())
+        Log.i("id", escola!!.getEscolaId().toString())
+        Log.i("escolaCodigo", escola!!.getEscolaCodigo().toString())
         Log.i("Nome", escola!!.getEscolaNome())
-        Log.i("Longitude", escola!!.getLongitude())
-        Log.i("Latitude", escola!!.getLatitude())
+        Log.i("Endereco", escola!!.getEndereco())
+        Log.i("MecCodigo", escola!!.getMecCodigoe())
         Log.i("userID", user!!.getUsuarioID().toString())
         Log.i("userTipo", user!!.getTipo())
 
@@ -78,7 +79,7 @@ class MakeAvaliacao : AppCompatActivity() {
             avaliacaoJson.put("usuario", JSONObject().put("id", user!!.getUsuarioID()))
             avaliacaoJson.put("pontuacao", pontuacaoStar!!.rating)
             avaliacaoJson.put("foto", "Link da foto")
-
+            Log.i("JSONPOST", avaliacaoJson.toString())
             thread {
                 try {
                     client = http.client
@@ -89,7 +90,7 @@ class MakeAvaliacao : AppCompatActivity() {
                         Log.i("PostResult", result.toString())
                         thread{
                             try {
-                                avaliacaoList = ctrl_avaliacao.getAll()!!
+                                avaliacaoList = ctrl_avaliacao.getAll(prefs!!)!!
                                 while (avaliacaoList.isEmpty()){
 
                                 }

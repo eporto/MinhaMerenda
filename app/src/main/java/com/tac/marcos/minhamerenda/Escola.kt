@@ -10,15 +10,16 @@ import java.io.Serializable
 class Escola : Serializable{
     //add ID
     private var escolaID: Int? = null;
+    private var escolaCodigo: Int? = null;
     private var escolaNome: String? = null
-    private var longitude: String? = null
-    private var latitude: String? = null
+    private var endereco: String? = null
+    private var mecCodigo: String? = null
 
     constructor(escolaNome: String, longitude: String, latitude: String, escolaID: Int) {
-        this.escolaID = escolaID
+        this.escolaCodigo = escolaID
         this.escolaNome = escolaNome
-        this.longitude = longitude
-        this.latitude = latitude
+        this.endereco = longitude
+        this.mecCodigo = latitude
     }
 
     constructor()
@@ -28,7 +29,7 @@ class Escola : Serializable{
         var avaliacao: Float? = 0F
         var qtd = 0
         for (i in a){
-            if(i.getEscola()!!.getEscolaId() == this.escolaID){
+            if(i.getEscola()!!.getEscolaCodigo() == this.escolaCodigo){
                 avaliacao = avaliacao!! + i.getPontuacao()!!
                 qtd ++
             }
@@ -43,8 +44,16 @@ class Escola : Serializable{
         return this.escolaID
     }
 
-    fun setEscolaID(s : Int) {
+    fun setEscolaId(s : Int) {
         this.escolaID = s
+    }
+
+    fun getEscolaCodigo(): Int? {
+        return this.escolaCodigo
+    }
+
+    fun setEscolaCodigo(s : Int) {
+        this.escolaCodigo = s
     }
 
     fun getEscolaNome(): String? {
@@ -55,20 +64,20 @@ class Escola : Serializable{
         this.escolaNome = s
     }
 
-    fun getLongitude(): String? {
-        return this.longitude
+    fun getEndereco(): String? {
+        return this.endereco
     }
 
-    fun setLongitude(s : String) {
-        this.longitude = s
+    fun setEndereco(s : String) {
+        this.endereco = s
     }
 
-    fun getLatitude(): String? {
-        return this.latitude
+    fun getMecCodigoe(): String? {
+        return this.mecCodigo
     }
 
-    fun setLatitude(s : String) {
-        this.latitude = s
+    fun setMecCodigo(s : String) {
+        this.mecCodigo = s
     }
 
 

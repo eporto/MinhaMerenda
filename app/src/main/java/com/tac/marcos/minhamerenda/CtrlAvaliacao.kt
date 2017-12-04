@@ -1,5 +1,6 @@
 package com.tac.marcos.minhamerenda
 
+import android.content.SharedPreferences
 import android.util.Log
 import com.example.marcos.okhttptest.Escola
 import okhttp3.OkHttpClient
@@ -16,11 +17,16 @@ class CtrlAvaliacao() {
     private val http = OkHttpClass()
     private val urlEscola: String = "minha-merenda.herokuapp.com/ts830/list/escola"
     private val urlAvaliacao: String = "minha-merenda.herokuapp.com/ts830/list/avaliacao"
+    private var Appkey: String? = null
+    private var token: String? = null
 
 
-    fun getAll(): ArrayList<Avaliacao>? {
+
+    fun getAll(p : SharedPreferences): ArrayList<Avaliacao>? {
+        Appkey = p.getString("appKey", "0")
+        token = p.getString("Token", "0")
         client = http.client
-        request = http.getRequest(urlAvaliacao)
+        request = http.getRequestHeader(urlAvaliacao, Appkey, token)
         var json = http.GETurl(client, request)
         var avaliacaoList = ArrayList<Avaliacao>()
 
@@ -34,10 +40,10 @@ class CtrlAvaliacao() {
 
                 //Setting Escola
                 var escolajson = jsonresp.getJSONObject(i).getJSONObject("escola")
-                x.setEscolaID(escolajson.getInt("id"))
+                x.setEscolaCodigo(escolajson.getInt("escolaCodigo"))
                 x.setEscolaNome(escolajson.getString("escolaNome"))
-                x.setLatitude(escolajson.getString("latitude"))
-                x.setLongitude(escolajson.getString("longitude"))
+                x.setEndereco(escolajson.getString("endereco"))
+                x.setMecCodigo(escolajson.getString("mecCodigo"))
 
                 //Setting Avaliacao
                 r.setAvaliacaoID(jsonresp.getJSONObject(i).getInt("id"))
@@ -59,9 +65,11 @@ class CtrlAvaliacao() {
         return null
     }
 
-    fun getAvaliacao(escola: Escola): ArrayList<Avaliacao>? {
+    fun getAvaliacao(escola: Escola, p: SharedPreferences): ArrayList<Avaliacao>? {
+        Appkey = p.getString("appKey", "0")
+        token = p.getString("Token", "0")
         client = http.client
-        request = http.getRequest(urlAvaliacao)
+        request = http.getRequestHeader(urlAvaliacao, Appkey, token)
         var json = http.GETurl(client, request)
         var avaliacaoList = ArrayList<Avaliacao>()
 

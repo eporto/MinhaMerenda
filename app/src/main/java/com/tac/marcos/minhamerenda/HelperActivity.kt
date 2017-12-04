@@ -101,15 +101,16 @@ class HelperActivity : AppCompatActivity() {
             escolaJsonObj = JSONObject(escolaJson)
             Log.i("escolaJsonObj: ", escolaJsonObj.toString())
             escola!!.run {
-                setEscolaID(escolaJsonObj!!.getInt("id"))
+                setEscolaCodigo(escolaJsonObj!!.getInt("id"))
+                setEscolaCodigo(escolaJsonObj!!.getInt("escolaCodigo"))
                 setEscolaNome(escolaJsonObj!!.getString("escolaNome"))
-                setLatitude(escolaJsonObj!!.getString("latitude"))
-                setLongitude(escolaJsonObj!!.getString("longitude"))
+                setEndereco(escolaJsonObj!!.getString("endereco"))
+                setMecCodigo(escolaJsonObj!!.getString("mecCodigo"))
             }
 
             thread {
                 try {
-                    AvaliacaoList = ctrl_avaliacao.getAll()!!
+                    AvaliacaoList = ctrl_avaliacao.getAll(prefs!!)
                     while (AvaliacaoList == null){
 
                     }

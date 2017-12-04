@@ -56,9 +56,9 @@ class FirstStartTabTwo : AppCompatActivity() {
 
     @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_start_tab2)
+        prefs = this.getSharedPreferences("mypref", Context.MODE_PRIVATE)
         //View
         btnNext = findViewById<View>(R.id.btntab2) as FloatingActionButton
         cbEscolas = findViewById<View>(R.id.comboBox) as Spinner
@@ -82,10 +82,11 @@ class FirstStartTabTwo : AppCompatActivity() {
                         escolaList.clear()
                         for (i in 0 until jsonresp.length()) {
                             var r = Escola()
-                            r.setEscolaID(jsonresp.getJSONObject(i).getInt("id"))
+                            r.setEscolaId(jsonresp.getJSONObject(i).getInt("id"))
+                            r.setEscolaCodigo(jsonresp.getJSONObject(i).getInt("escolaCodigo"))
                             r.setEscolaNome(jsonresp.getJSONObject(i).getString("escolaNome"))
-                            r.setLatitude(jsonresp.getJSONObject(i).getString("latitude"))
-                            r.setLongitude(jsonresp.getJSONObject(i).getString("longitude"))
+                            r.setEndereco(jsonresp.getJSONObject(i).getString("endereco"))
+                            r.setMecCodigo(jsonresp.getJSONObject(i).getString("mecCodigo"))
 
 
                             escolaList.add(r)
@@ -128,7 +129,7 @@ class FirstStartTabTwo : AppCompatActivity() {
 
             //Getting Avaliacao From WebServer
             try{
-                avaliacaoList = ctrl_avaliacao.getAll()!!
+                avaliacaoList = ctrl_avaliacao.getAll(prefs!!)!!
 
 //                client = http.client
 //                request = http.getRequest(urlAvaliacao)
@@ -179,11 +180,12 @@ class FirstStartTabTwo : AppCompatActivity() {
             //save Escola into SharedPrefs
             var jsonEscola = JSONObject()
             jsonEscola.put("id", escolaToSend!!.getEscolaId()!!)
+            jsonEscola.put("escolaCodigo", escolaToSend!!.getEscolaCodigo()!!)
             jsonEscola.put("escolaNome", escolaToSend!!.getEscolaNome()!!)
-            jsonEscola.put("longitude", escolaToSend!!.getLongitude()!!)
-            jsonEscola.put("latitude", escolaToSend!!.getLatitude()!!)
+            jsonEscola.put("endereco", escolaToSend!!.getEndereco()!!)
+            jsonEscola.put("mecCodigo", escolaToSend!!.getMecCodigoe()!!)
 
-            prefs = this.getSharedPreferences("mypref", Context.MODE_PRIVATE)
+
             prefs!!.edit().putString("escolaJson", jsonEscola.toString()).apply()
 
             var escolaJson = prefs!!.getString("escolaJson", "0")

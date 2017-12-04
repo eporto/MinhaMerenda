@@ -70,6 +70,16 @@ public class OkHttpClass {
                 .url("https://"+url)
                 .build();
     }
+    public Request getRequestHeader(String url, String appkey, String token) {
+        Headers headers = Headers.of(
+                "Appkey", appkey,
+                "Authorization", token
+        );
+        return request = new Request.Builder()
+                .url("https://"+url)
+                .headers(headers)
+                .build();
+    }
 
     public void setRequest(Request request) {
         this.request = request;
