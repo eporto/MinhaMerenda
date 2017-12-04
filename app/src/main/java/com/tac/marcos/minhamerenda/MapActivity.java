@@ -128,7 +128,7 @@ public class MapActivity extends AppCompatActivity  {
         ArrayList<Location> localizacoes = new ArrayList<Location>();
 
 
-        text = (TextView)findViewById(R.id.textView);
+        text = findViewById(R.id.textView);
 
         try {
 
