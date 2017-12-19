@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tac.marcos.minhamerenda">
+    package="br.unicap.fullstack.minhamerenda">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permisssion.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".HelperActivity"
+            android:name=".Activity.InitActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -24,23 +25,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".FirstStartTabOne"
+            android:name=".Activity.FirstStartCredentialsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_first_start_tab1"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".FirstStartTabTwo"
+            android:name=".Activity.FirstStartUserActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_first_start_tab2"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MakeAvaliacao"
-        android:label="@string/title_activity_make_avaliacao"/>
-        <activity android:name=".MapActivity"
-            android:label="@string/app_name"/>
+        <activity
+            android:name=".Activity.MakeAvaliacao"
+            android:label="@string/title_activity_make_avaliacao" />
+        <activity
+            android:name=".Activity.LocalizarEscolaActivity"
+            android:label="@string/title_activity_localizar_escola"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

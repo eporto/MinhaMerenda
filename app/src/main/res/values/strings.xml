@@ -1,6 +1,35 @@
 <resources>
     <string name="app_name">Minha Merenda</string>
 
+    <!-- App Credentials -->
+    <string name="prefs_file">br.unicap.ts830.fullstack.PREFS_MINHA_MERENDA</string>
+    <string name="prefs_is_first_start">isFirstStart</string>
+    <string name="prefs_appkey">Appkey</string>
+    <string name="prefs_apptoken">Authorization</string>
+    <string name="prefs_appusuario">usuario</string>
+    <string name="prefs_authorization">Authorization</string>
+
+    <!-- App Endpoints -->
+    <!--
+        /register
+        create/avaliacao (Auth)
+        list/avaliacao ((Auth)
+        create/escola (Auth)
+        list/escola
+        create/usuario (Auth)
+        list/usuario (Auth)
+        list/geometry
+        list/geometry/{escola_cod}
+    -->
+    <string name="endpoint_register">https://minha-merenda.herokuapp.com/ts830/register</string> <!-- appkey -->
+    <string name="endpoint_list_escola">https://minha-merenda.herokuapp.com/ts830/list/escola</string>
+    <string name="endpoint_create_escola">https://minha-merenda.herokuapp.com/ts830/create/escola</string> <!-- Auth -->
+    <string name="endpoint_list_avaliacao">https://minha-merenda.herokuapp.com/ts830/list/avaliacao</string> <!-- Auth -->
+    <string name="endpoint_create_avaliacao">https://minha-merenda.herokuapp.com/ts830/create/avaliacao</string> <!-- Auth -->
+    <string name="endpoint_create_avaliacao_foto">https://minha-merenda.herokuapp.com/ts830/create/avaliacao/foto</string> <!-- Auth -->
+    <string name="endpoint_list_geometry">https://minha-merenda.herokuapp.com/ts830/list/geometry</string>
+    <string name="endpoint_list_usuario">https://minha-merenda.herokuapp.com/ts830/list/usuario</string> <!-- Auth -->
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="loading">Carregando...</string>
@@ -26,4 +55,5 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="escola_image">escola Image</string>
     <string name="todo">TODO</string>
+    <string name="title_activity_localizar_escola">LocalizarEscolaActivity</string>
 </resources>

@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/makeAvaliacaoView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:layout_editor_absoluteY="81dp">
@@ -9,9 +10,9 @@
 
     <TextView
         android:id="@+id/txtEscola"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_width="25dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,7 +20,7 @@
 
     <RatingBar
         android:id="@+id/starPontuacaoPost"
-        android:layout_width="wrap_content"
+        android:layout_width="236dp"
         android:layout_height="72dp"
         android:layout_marginTop="28dp"
         android:numStars="5"
@@ -27,11 +28,11 @@
         app:layout_constraintBottom_toTopOf="@+id/txtEscola"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPost"
-        app:layout_constraintVertical_bias="0.791" />
+        app:layout_constraintTop_toBottomOf="@+id/fabLocalize"
+        app:layout_constraintVertical_bias="0.362" />
     <!--@+id/btnPost-->
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btnPost"
+        android:id="@+id/fabLocalize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
@@ -44,4 +45,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_menu_send" />
+
+    <ImageView
+        android:id="@+id/imgView"
+        android:layout_width="241dp"
+        android:layout_height="202dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginTop="76dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_report_image" />
 </android.support.constraint.ConstraintLayout>

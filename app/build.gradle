@@ -4,11 +4,13 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     android.defaultConfig.vectorDrawables.useSupportLibrary = true
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.tac.marcos.minhamerenda"
+        applicationId "br.unicap.fullstack.minhamerenda"
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
@@ -36,4 +38,7 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
     implementation files('libs/svg-android-1.1.jar')
     implementation files('libs/org-apache-commons-codec.jar')
+    compile 'android.arch.persistence.room:runtime:1.0.0-alpha9'
+    kapt 'android.arch.persistence.room:compiler:1.0.0-alpha9'
+    implementation "com.google.android.gms:play-services-location:11.6.0"
 }
